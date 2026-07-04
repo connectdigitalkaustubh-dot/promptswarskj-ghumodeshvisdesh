@@ -136,8 +136,9 @@ export default function SettingsView({ userStats, setUserStats }: SettingsViewPr
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Display name */}
               <div className="space-y-1.5">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Display Name</label>
+                <label htmlFor="displayNameInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Display Name</label>
                 <input
+                  id="displayNameInput"
                   type="text"
                   required
                   value={userName}
@@ -148,8 +149,9 @@ export default function SettingsView({ userStats, setUserStats }: SettingsViewPr
 
               {/* Preferred Style */}
               <div className="space-y-1.5">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Travel Style Persona</label>
+                <label htmlFor="travelStylePersonaSelect" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Travel Style Persona</label>
                 <select
+                  id="travelStylePersonaSelect"
                   value={customStyle}
                   onChange={(e) => setCustomStyle(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-white/60 border border-white/60 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-sky-500 font-sans cursor-pointer"

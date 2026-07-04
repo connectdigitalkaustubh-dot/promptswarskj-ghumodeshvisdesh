@@ -50,7 +50,14 @@ app.post("/api/gemini/generate", async (req, res) => {
     }
 
     // Prepare configuration
-    const config: any = {
+    interface GenConfig {
+      temperature: number;
+      systemInstruction?: string;
+      responseMimeType?: string;
+      responseSchema?: unknown;
+    }
+
+    const config: GenConfig = {
       temperature: 0.7,
     };
 
@@ -68,16 +75,17 @@ app.post("/api/gemini/generate", async (req, res) => {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
-      config,
+      config: config as any, // Cast only at SDK boundary if needed, or leave uncast
     });
 
     const text = response.text || "";
     res.json({ text });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
     console.error("Gemini Generate Error:", error);
     res.status(500).json({
       error: "Failed to generate AI content.",
-      details: error.message || String(error),
+      details: errorMsg,
     });
   }
 });
@@ -108,19 +116,19 @@ STRICT RULES:
 6. Address user types with specialized lenses (Student, Solo, Female Traveler, Senior Citizen, Family, Road tripper, Digital Nomad).`;
 
     // Map conversation history to the format required by Gemini Chat API or generate content with history
-    // Since we want to use the standard generateContent with a system instruction and history, let's build it
-    // Wait, the SDK has:
-    // const chat = ai.chats.create({ model: "gemini-2.5-flash", config: { systemInstruction } });
-    // Or we can feed standard contents structure where contents is an array of content roles
-    // Let's do that because it's stateless on the server and works perfectly with Express!
-    const contents = messages.map((msg: any) => ({
+    interface ChatInputMessage {
+      role: string;
+      text: string;
+    }
+
+    const contents = messages.map((msg: ChatInputMessage) => ({
       role: msg.role === "assistant" ? "model" : "user",
       parts: [{ text: msg.text }],
     }));
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents,
+      contents: contents as any,
       config: {
         systemInstruction,
         temperature: 0.7,
@@ -129,11 +137,12 @@ STRICT RULES:
 
     const reply = response.text || "I apologize, but I could not formulate a response. How else can I assist you on your travels?";
     res.json({ text: reply });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
     console.error("Gemini Chat Error:", error);
     res.status(500).json({
       error: "Failed to connect with SafarSaathi AI.",
-      details: error.message || String(error),
+      details: errorMsg,
     });
   }
 });

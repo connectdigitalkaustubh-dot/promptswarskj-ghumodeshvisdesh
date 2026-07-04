@@ -167,9 +167,10 @@ Adhere strictly to the requested schema. Use Rupees for all costing calculations
       const parsedItinerary = JSON.parse(data.text);
       setItinerary(parsedItinerary);
       setExpandedDay(1);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message || "Failed to parse itinerary. Please try with another destination.");
+      const errorMsg = err instanceof Error ? err.message : "Failed to parse itinerary. Please try with another destination.";
+      setError(errorMsg);
     } finally {
       clearInterval(quoteInterval);
       setIsLoading(false);
@@ -201,10 +202,11 @@ Adhere strictly to the requested schema. Use Rupees for all costing calculations
           <div className="space-y-4">
             {/* 1. Destination Input */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Target Destination</label>
+              <label htmlFor="destinationTargetInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Target Destination</label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-3 w-4.5 h-4.5 text-slate-400" />
                 <input
+                  id="destinationTargetInput"
                   type="text"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
@@ -230,10 +232,11 @@ Adhere strictly to the requested schema. Use Rupees for all costing calculations
             {/* 2. Days Slider */}
             <div className="space-y-1.5">
               <div className="flex justify-between items-center text-xs">
-                <label className="font-mono font-bold uppercase tracking-wider text-slate-400">Duration (Days)</label>
+                <label htmlFor="durationDaysInput" className="font-mono font-bold uppercase tracking-wider text-slate-400">Duration (Days)</label>
                 <span className="font-bold text-sky-600 font-mono bg-sky-500/10 px-2 py-0.5 rounded-md">{days} Days</span>
               </div>
               <input
+                id="durationDaysInput"
                 type="range"
                 min="1"
                 max="7"
@@ -245,8 +248,9 @@ Adhere strictly to the requested schema. Use Rupees for all costing calculations
 
             {/* 3. Traveler Profile select */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Traveler Profile</label>
+              <label htmlFor="travelerProfileSelect" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Traveler Profile</label>
               <select
+                id="travelerProfileSelect"
                 value={travelerType}
                 onChange={(e) => setTravelerType(e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-white/60 border border-white/60 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-sky-500 font-sans cursor-pointer"
@@ -263,8 +267,9 @@ Adhere strictly to the requested schema. Use Rupees for all costing calculations
 
             {/* 4. Budget level select */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Budget Style</label>
+              <label htmlFor="budgetStyleSelect" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Budget Style</label>
               <select
+                id="budgetStyleSelect"
                 value={budgetType}
                 onChange={(e) => setBudgetType(e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-white/60 border border-white/60 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-sky-500 font-sans cursor-pointer"

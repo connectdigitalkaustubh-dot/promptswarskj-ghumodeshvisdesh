@@ -81,8 +81,9 @@ export default function SafarSaathiFloating() {
       };
 
       setMessages((prev) => [...prev, replyMsg]);
-    } catch (err: any) {
-      setError(err.message || "Network error. Please make sure your server is active.");
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Network error. Please make sure your server is active.";
+      setError(errorMsg);
       console.error(err);
     } finally {
       setIsLoading(false);

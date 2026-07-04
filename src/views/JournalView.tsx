@@ -172,8 +172,9 @@ export default function JournalView() {
           <form onSubmit={handleCreateEntry} className="space-y-4">
             {/* Title */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Log Title</label>
+              <label htmlFor="logTitleInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Log Title</label>
               <input
+                id="logTitleInput"
                 type="text"
                 required
                 value={title}
@@ -187,8 +188,9 @@ export default function JournalView() {
             <div className="grid grid-cols-2 gap-3">
               {/* Date */}
               <div className="space-y-1.5">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Date</label>
+                <label htmlFor="logDateInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Date</label>
                 <input
+                  id="logDateInput"
                   type="date"
                   required
                   value={date}
@@ -199,8 +201,9 @@ export default function JournalView() {
 
               {/* Location */}
               <div className="space-y-1.5">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Location</label>
+                <label htmlFor="logLocationInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Location</label>
                 <input
+                  id="logLocationInput"
                   type="text"
                   required
                   value={location}
@@ -215,8 +218,9 @@ export default function JournalView() {
             <div className="grid grid-cols-2 gap-3">
               {/* Expense logged */}
               <div className="space-y-1.5">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Spend Amount (₹)</label>
+                <label htmlFor="logExpenseInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Spend Amount (₹)</label>
                 <input
+                  id="logExpenseInput"
                   type="number"
                   value={expense}
                   onChange={(e) => setExpense(e.target.value)}
@@ -227,8 +231,9 @@ export default function JournalView() {
 
               {/* Category selector */}
               <div className="space-y-1.5">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Spend Category</label>
+                <label htmlFor="logCategorySelect" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Spend Category</label>
                 <select
+                  id="logCategorySelect"
                   value={category}
                   onChange={(e) => setCategory(e.target.value as JournalEntry["category"])}
                   className="w-full px-3.5 py-2.5 bg-white/60 border border-white/60 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-sky-500 font-sans cursor-pointer"
@@ -245,8 +250,8 @@ export default function JournalView() {
 
             {/* Experience Rating */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Sensory Rating</label>
-              <div className="flex gap-1.5">
+              <label htmlFor="sensoryRatingInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Sensory Rating</label>
+              <div id="sensoryRatingInput" className="flex gap-1.5">
                 {[1, 2, 3, 4, 5].map((num) => (
                   <button
                     key={num}
@@ -267,8 +272,9 @@ export default function JournalView() {
 
             {/* Narrative text content */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Log Narrative Story</label>
+              <label htmlFor="logNarrativeTextArea" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Log Narrative Story</label>
               <textarea
+                id="logNarrativeTextArea"
                 required
                 rows={4}
                 value={content}

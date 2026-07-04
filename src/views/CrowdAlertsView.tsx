@@ -142,10 +142,11 @@ As SafarSaathi AI, analyze these crowd logs and compile 3 highly actionable, spe
           <form onSubmit={handleFormSubmit} className="space-y-4">
             {/* 1. Place name */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Target Location</label>
+              <label htmlFor="alertLocationInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Target Location</label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-3 w-4.5 h-4.5 text-slate-400" />
                 <input
+                  id="alertLocationInput"
                   type="text"
                   required
                   value={place}
@@ -158,8 +159,8 @@ As SafarSaathi AI, analyze these crowd logs and compile 3 highly actionable, spe
 
             {/* 2. Crowd level buttons selector */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Current Crowd Density</label>
-              <div className="grid grid-cols-4 gap-1.5 text-xs font-bold font-mono">
+              <label htmlFor="crowdDensityInput" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Current Crowd Density</label>
+              <div id="crowdDensityInput" className="grid grid-cols-4 gap-1.5 text-xs font-bold font-mono">
                 {(["Low", "Moderate", "Crowded", "Overcrowded"] as const).map((lvl) => {
                   const isSel = crowdLevel === lvl;
 
@@ -184,10 +185,11 @@ As SafarSaathi AI, analyze these crowd logs and compile 3 highly actionable, spe
             {/* 3. Queue wait time slider */}
             <div className="space-y-1.5">
               <div className="flex justify-between items-center text-xs">
-                <label className="font-mono font-bold uppercase tracking-wider text-slate-400">Queue wait (Minutes)</label>
+                <label htmlFor="queueWaitRangeInput" className="font-mono font-bold uppercase tracking-wider text-slate-400">Queue wait (Minutes)</label>
                 <span className="font-mono font-bold text-sky-600 bg-sky-500/10 px-2 py-0.5 rounded-md">{queueTime} min</span>
               </div>
               <input
+                id="queueWaitRangeInput"
                 type="range"
                 min="0"
                 max="240"
@@ -200,8 +202,9 @@ As SafarSaathi AI, analyze these crowd logs and compile 3 highly actionable, spe
 
             {/* 4. Parking availability select */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Parking Capacity Status</label>
+              <label htmlFor="parkingCapacitySelect" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Parking Capacity Status</label>
               <select
+                id="parkingCapacitySelect"
                 value={parking}
                 onChange={(e) => setParking(e.target.value as "Available" | "Limited" | "Full" | "No Parking")}
                 className="w-full px-3.5 py-2.5 bg-white/60 border border-white/60 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-sky-500 font-sans cursor-pointer"
@@ -215,8 +218,9 @@ As SafarSaathi AI, analyze these crowd logs and compile 3 highly actionable, spe
 
             {/* 5. Comment notes */}
             <div className="space-y-1.5">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Detailed Review notes</label>
+              <label htmlFor="alertDetailedNotes" className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Detailed Review notes</label>
               <textarea
+                id="alertDetailedNotes"
                 required
                 rows={3}
                 value={comment}
