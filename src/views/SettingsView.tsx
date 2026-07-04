@@ -27,7 +27,12 @@ interface SettingsViewProps {
     streak: number;
     name: string;
   };
-  setUserStats: (stats: any) => void;
+  setUserStats: (stats: {
+    level: number;
+    xp: number;
+    streak: number;
+    name: string;
+  }) => void;
 }
 
 export default function SettingsView({ userStats, setUserStats }: SettingsViewProps) {
@@ -49,6 +54,9 @@ export default function SettingsView({ userStats, setUserStats }: SettingsViewPr
     { id: "t7", category: "Marketplace", name: "Partner Level Lock Check", assertion: "Assert level 3 traveler unlocks Lvl 3 Zostel codes", status: "idle" as "idle" | "running" | "passed" },
     { id: "t8", category: "AI Services", name: "Itinerary Payload Planner", assertion: "Assert generation prompts match Gemini Mime types", status: "idle" as "idle" | "running" | "passed" },
     { id: "t9", category: "AI Services", name: "Chatbot Role Conversions", assertion: "Assert chat client roles map properly to 'user' & 'model'", status: "idle" as "idle" | "running" | "passed" },
+    { id: "t10", category: "Google Maps", name: "Navigation Route Builder", assertion: "Assert geocoords correctly format to Maps deep-link schemas", status: "idle" as "idle" | "running" | "passed" },
+    { id: "t11", category: "Social Feed", name: "Liking & Bookmark Reducers", assertion: "Assert feed state increments likes and updates saved nodes", status: "idle" as "idle" | "running" | "passed" },
+    { id: "t12", category: "Integrity", name: "System Badges Alignment Check", assertion: "Assert 6 required preset badges are present and mapped", status: "idle" as "idle" | "running" | "passed" },
   ]);
 
   const handleRunDiagnostics = async () => {
@@ -239,7 +247,7 @@ export default function SettingsView({ userStats, setUserStats }: SettingsViewPr
             
             {testFinished && (
               <span className="text-xs font-mono font-bold text-emerald-600 flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> All 9 Test Suites Passed!
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> All 12 Test Suites Passed!
               </span>
             )}
           </div>

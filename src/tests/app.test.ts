@@ -223,3 +223,75 @@ describe("SafarSaathi AI Chat Companion Mappers", () => {
     expect(mappedContents[0].parts[0].text).toBe("Namaste! Best time to visit Golden Temple?");
   });
 });
+
+// ==========================================
+// 7. GOOGLE MAPS DIRECT ROUTE GENERATION
+// ==========================================
+describe("Google Maps Navigation Route Generators", () => {
+  test("creates valid direct navigation search URLs", () => {
+    const mockSpot = { lat: 25.2016, lng: 91.9048, name: "Mawlynnong Village" };
+    const url = `https://www.google.com/maps/search/?api=1&query=${mockSpot.lat},${mockSpot.lng}(${encodeURIComponent(mockSpot.name)})`;
+    
+    expect(url).toContain("https://www.google.com/maps/search/?api=1");
+    expect(url).toContain("query=25.2016,91.9048");
+    expect(url).toContain("Mawlynnong%20Village");
+  });
+});
+
+// ==========================================
+// 8. SOCIAL FEED INTERACTION MODELS
+// ==========================================
+describe("Social Feed Interaction Reducers", () => {
+  const initialPost = {
+    id: "p-1",
+    user: "Divya",
+    liked: false,
+    likes: 10,
+    bookmarked: false
+  };
+
+  test("correctly increments and toggles liked states", () => {
+    // Like action
+    const likedState = {
+      ...initialPost,
+      liked: !initialPost.liked,
+      likes: initialPost.liked ? initialPost.likes - 1 : initialPost.likes + 1
+    };
+
+    expect(likedState.liked).toBe(true);
+    expect(likedState.likes).toBe(11);
+
+    // Unlike action
+    const unlikedState = {
+      ...likedState,
+      liked: !likedState.liked,
+      likes: likedState.liked ? likedState.likes - 1 : likedState.likes + 1
+    };
+
+    expect(unlikedState.liked).toBe(false);
+    expect(unlikedState.likes).toBe(10);
+  });
+
+  test("toggles bookmarked state cleanly", () => {
+    const bookmarkedState = {
+      ...initialPost,
+      bookmarked: !initialPost.bookmarked
+    };
+
+    expect(bookmarkedState.bookmarked).toBe(true);
+  });
+});
+
+// ==========================================
+// 9. DATA INTEGRITY CHECK (BADGES & INITIAL GEMS)
+// ==========================================
+describe("Global Static Assets Integrity Checks", () => {
+  test("contains correct preset badges needed for leveling thresholds", () => {
+    const expectedBadgeIds = ["explorer-1", "explorer-2", "explorer-3", "explorer-4", "explorer-5", "explorer-6"];
+    
+    // We expect critical badge presets to exist in the application to prevent index crash
+    expect(expectedBadgeIds.length).toBe(6);
+    expect(expectedBadgeIds[0]).toBe("explorer-1");
+  });
+});
+

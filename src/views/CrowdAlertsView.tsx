@@ -203,7 +203,7 @@ As SafarSaathi AI, analyze these crowd logs and compile 3 highly actionable, spe
               <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Parking Capacity Status</label>
               <select
                 value={parking}
-                onChange={(e) => setParking(e.target.value as any)}
+                onChange={(e) => setParking(e.target.value as "Available" | "Limited" | "Full" | "No Parking")}
                 className="w-full px-3.5 py-2.5 bg-white/60 border border-white/60 rounded-xl text-sm text-slate-800 focus:outline-none focus:border-sky-500 font-sans cursor-pointer"
               >
                 <option value="Available">🟢 Parking Available</option>
